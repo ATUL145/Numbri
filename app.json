@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Numbri",
+    "slug": "Numbri",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

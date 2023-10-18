@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { StyleSheet } from "react-native";
+import AppNavigation from "./navigation/AppNavigation";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello There</Text>
-    </View>
-  );
+  const Stack = createNativeStackNavigator();
+
+  return <AppNavigation />;
 }
 
 const styles = StyleSheet.create({

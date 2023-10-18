@@ -173,28 +173,3 @@ const styles = StyleSheet.create({
 });
 
 export default Signup;
-// const user = {
-//   name: name,
-//   email: email,
-//   password: password,
-// };
-
-// axios
-//   .post("http://localhost:8000/register", user)
-//   .then((response) => {
-//     console.log(response);
-//     Alert.alert(
-//       "Registration Successfully",
-//       "You have registered successfully"
-//     );
-//     setName("");
-//     setPassword("");
-//     setEmail("");
-//   })
-//   .catch((error) => {
-//     Alert.alert(
-//       "Registration Error",
-//       "an error occurred during registration"
-//     );
-//     console.log("registration failed", error);
-//   });

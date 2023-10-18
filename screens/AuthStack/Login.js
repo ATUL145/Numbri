@@ -37,7 +37,6 @@ const Login = ({ navigation }) => {
               placeholderTextColor="#A9A9A9"
               keyboardType="email-address"
               autoCapitalize="none"
-              ref={emailInputRef}
             />
           </View>
           <View style={styles.inputContainer}>

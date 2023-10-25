@@ -1,22 +1,19 @@
-import { Fontisto, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import History from "../../components/History";
-import Home from "../../components/Home";
-import Refer from "../../components/Refer";
-import Setting from "../../components/Setting";
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import History from "../screens/History";
+import Home from "../screens/Home";
+import Setting from "../screens/Setting";
 
 const Tab = createBottomTabNavigator();
-const HomeScreen = ({ navigation }) => {
-  const [userData, setUserData] = useState();
-
-  const handleLogout = () => {
-    console.log("logout");
-  };
+const windowWidth = Dimensions.get("window").width;
+const tabBarHeight = windowWidth * 0.15;
+const AppStack = ({ navigation, userUID }) => {
   const CustomTabBar = ({ navigation, state, descriptors }) => {
     return (
-      <View style={styles.tabBarContainer}>
+      <View style={[styles.tabBarContainer, { height: tabBarHeight }]}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
 
@@ -40,9 +37,7 @@ const HomeScreen = ({ navigation }) => {
           } else if (route.name === "History") {
             iconName = isFocused ? "time" : "time-outline";
           } else if (route.name === "Setting") {
-            iconName = "Setting";
-          } else if (route.name === "Refer") {
-            iconName = "Refer";
+            iconName = "settings-outline";
           }
           return (
             <TouchableOpacity
@@ -51,23 +46,16 @@ const HomeScreen = ({ navigation }) => {
               style={[
                 styles.tabBarButton,
                 {
-                  backgroundColor: isFocused ? "skyblue" : "#8957b8",
+                  backgroundColor: isFocused ? "skyblue" : "purple",
+                  elevation: isFocused ? 8 : 2,
                 },
               ]}
             >
-              {route.name !== "User" ? (
-                <Ionicons
-                  name={iconName}
-                  size={30}
-                  color={isFocused ? "white" : "black"}
-                />
-              ) : (
-                <Fontisto
-                  name="user-secret"
-                  size={30}
-                  color={isFocused ? "white" : "black"}
-                />
-              )}
+              <Ionicons
+                name={iconName}
+                size={windowWidth * 0.08}
+                color={isFocused ? "white" : "black"}
+              />
             </TouchableOpacity>
           );
         })}
@@ -76,24 +64,31 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="History" component={History} />
-      <Tab.Screen name="Refer" component={Refer} />
-      <Tab.Screen name="Setting" component={Setting} />
-    </Tab.Navigator>
+    <NavigationContainer>
+      <Tab.Navigator
+        tabBar={(props) => <CustomTabBar {...props} />}
+        screenOptions={{ headerShown: false }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={(props) => <Home {...props} userUID={userUID} />}
+        />
+        <Tab.Screen name="History" component={History} />
+        <Tab.Screen name="Setting" component={Setting} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
   tabBarContainer: {
     flexDirection: "row",
-    height: 60,
     justifyContent: "space-around",
     alignItems: "center",
+    position: "absolute",
+    bottom: 10,
+    width: "90%",
+    marginHorizontal: 20,
   },
   tabBarButton: {
     flex: 1,
@@ -103,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default AppStack;

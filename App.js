@@ -1,11 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
-import AppNavigation from "./navigation/AppNavigation";
+import RootNavigation from "./navigation";
+import { UserProvider } from "./hooks/userContext";
 export default function App() {
-  const Stack = createNativeStackNavigator();
-
-  return <AppNavigation />;
+  return (
+    <UserProvider>
+      <RootNavigation />
+    </UserProvider>
+  );
 }
 
 const styles = StyleSheet.create({
